@@ -202,12 +202,13 @@ class QueryBuilder {
         $models = [];
 
         foreach ($rows as $row) {
+            $model = clone $this->model;
             foreach ($row as $column => $value) {
-                $this->model->{$column} = $value;
+                $model->{$column} = $value;
             }
 
-            $this->model->queryBuilder->parseRelations();
-            $models[] = $this->model;
+            $model->queryBuilder->parseRelations();
+            $models[] = $model;
         }
 
         if ($this->paginationPreQuery) {
