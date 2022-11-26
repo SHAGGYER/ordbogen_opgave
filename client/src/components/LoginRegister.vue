@@ -11,6 +11,11 @@ export default {
     const name = ref("");
 
     async function login() {
+      if (email.value === "" || password.value === "") {
+        alert("Please fill out all fields");
+        return;
+      }
+
       try {
         const { data } = await HttpClient().post("/api/auth/login", {
           email: email.value,
@@ -25,6 +30,11 @@ export default {
     }
 
     async function register() {
+      if (!email.value || !password.value || !name.value) {
+        alert("Please fill out all fields");
+        return;
+      }
+
       try {
         const { data } = await HttpClient().post("/api/auth/register", {
           email: email.value,
