@@ -10,15 +10,18 @@ export default {
   },
   setup() {
     const user = ref(null);
+    const initiated = ref(false);
     const store = useStore();
 
     onMounted(async () => {
       const { data } = await HttpClient().get("/api/auth/init");
       store.commit("setUser", data.user);
+      initiated.value = true;
     });
 
     return {
       user,
+      initiated,
     };
   },
 };
@@ -27,7 +30,7 @@ export default {
 <template>
   <div>
     <Navbar />
-    <div class="router">
+    <div v-if="initiated" class="router">
       <router-view />
     </div>
   </div>

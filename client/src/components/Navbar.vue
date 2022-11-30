@@ -8,6 +8,7 @@ export default {
     const logout = () => {
       localStorage.removeItem("token");
       store.commit("setUser", null);
+      window.location.href = "/login";
     };
 
     return {
